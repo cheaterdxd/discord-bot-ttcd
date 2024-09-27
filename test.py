@@ -1,9 +1,8 @@
-import random
-danh_sach = input("Nhập các số, cách nhau bởi khoảng trắng: ").split()
-n = len(danh_sach)
-for i in range(n - 1, 0, -1):
-    j = random.randint(0, i)
-    print(danh_sach[j], end=' ')
-    danh_sach[j] = danh_sach[i]
-    danh_sach[i] = danh_sach[j]
-print(danh_sach[0])
+def find_max(numbers):
+    if not numbers:
+        return None  # Trả về None nếu danh sách trống
+    max_number = numbers[0]  # Giả sử phần tử đầu tiên là lớn nhất
+    for num in numbers:
+        if num > max_number:
+            max_number = num
+    return max_number
