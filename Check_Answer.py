@@ -1,68 +1,89 @@
-"""GIẢI THÍCH CÁC HÀM Ở DƯỚI"""
-
-"""Bước 1"""
-"""Làm hàm Check_Answer cho phép truyền value1 và value2 vào để so sánh:"""
-#Nếu value1 bằng value2 thì kết quả trả về True
-#ngược lại nếu 2 value không bằng nhau thì kết quả trả về False
-
-"""Bước 2"""
-"""Truyền danh sách có sẵn vào. Chỗ này thì em Kiệt chưa biết là ép danh sách vào theo kiểu nào: 1 nhập tay; 2 là truyền theo dạng excel được thống kê sẵn rồi viết lệnh SQL đưa dô"""
-#Vì vậy, chỗ này em Kiệt tạo thử cái list tên là my_list. Trong đó có các giá trị [10, 20, 30, 40, 50]
-
-"""Bước 3"""
-"""Người dùng lựa chọn cách so sánh để nhập giá trị"""
-#Nhập giá trị trực tiếp từ bàn phím (Cách 1).
-#Lấy giá trị từ một danh sách có sẵn (Cách 2).
-
-"""Bước 4"""
-"""Xử lý lựa chọn"""
-#Nếu người dùng chọn cách 1: Sẽ yêu cầu nhập hai giá trị thông qua input(). Sau đó các giá trị này sẽ được so sánh. Chỗ này ép kiểu int để input đưa về kiểu số nguyên. Chứ không thôi nó để kiểu chuỗi thì không thể so sánh giá trị mà nó so sánh số ký tự.
-#Nếu người dùng chọn cách 2: Người dùng sẽ nhập chỉ số của các phần tử trong danh sách my_list, sau đó sẽ lấy các giá trị tương ứng và so sánh chúng.
-#Kiểm tra tính hợp lệ của chỉ số: Nếu chỉ số người dùng nhập không hợp lệ (ngoài phạm vi của danh sách), chương trình sẽ thoát với thông báo lỗi.
-
-"""Bước 5"""
-"""Gọi hàm để so sánh và in kết quả"""
-# Mình tạo ra biến result và mình cho bằng với hàm Check_Answer có chứa (value1, value2) để in ra kết quả mà hàm Check_Answer đã làm.
-
-
 def Check_Answer(value1, value2):
-    # So sánh hai giá trị
-    if value1 == value2:
-        return True  # Nếu giá trị bằng nhau thì trả về True
-    else:
-        return False # Nếu giá trị không bằng nhau thì trả về False
+    """
+    Hàm kiểm tra câu trả lời (Hay nói cách khác là Hàm kiểm tra giá trị) 
+
+    Parameter: 
+    - Truyền vào tham số value1
+    - Truyền vào tham số value2
+
+    Return:
+    - Trả về True nếu bằng nhau
+    - Trả về False nếu không bằng nhau
+"""
+    if value1 == value2: #Nếu value1 bằng value2 thì
+        return True #Trả về True
+    else: #Ngược lại thì không bằng
+        return False #Trả về False
+
+
+def input_values():
+    """Hàm nhập giá trị
+
+    Parameter: 
+    - "Không có tham số truyền vào"
+
+    Return:
+    - Trả về value1 và value2
+"""
+    value1 = int(input("Nhập giá trị thứ nhất: "))# Tạo biến cục bộ tên là value1 và cho phép nhập từ bàn phím
+    value2 = int(input("Nhập giá trị thứ hai: "))# Tạo biến cục bộ tên là value2 và cho phép nhập từ bàn phím
+    return value1, value2 #Trả về value1 và value2
+
+
+def select_from_list(my_list):
+    """Hàm lấy giá trị từ danh sách
+
+    Parameter: 
+    - Truyền vào danh sách my_list
+     
+    Return:
+    - Trả về chỉ số index1 và index2
+"""
+    print("Danh sách giá trị:", my_list) #in danh sách my_list
+    index1 = int(input(f"Nhập chỉ số phần tử thứ nhất (từ 0 đến {len(my_list) - 1}): ")) # Tạo biến cục bộ tên là index1 và cho phép nhập chỉ số từ 0 đến độ dài cuối cùng của danh sách bằng cách {len(my_list) - 1}
+    index2 = int(input(f"Nhập chỉ số phần tử thứ hai (từ 0 đến {len(my_list) - 1}): ")) # Tạo biến cục bộ tên là index2 và cho phép nhập chỉ số từ 0 đến độ dài cuối cùng của danh sách bằng cách {len(my_list) - 1}
     
-# Danh sách các giá trị
-my_list = [10, 20, 30, 40, 50]
+    if 0 <= index1 < len(my_list) and 0 <= index2 < len(my_list):  # Hàm len(my_list) trả về số lượng phần tử trong danh sách my_list.
+            # Vì chỉ số danh sách được bắt đầu từ 0. Vì vậy, chỉ số (index) lớn nhất của danh sách sẽ là len(my_list) - 1.
+            # Ví dụ: Nếu my_list=[10, 20, 30, 40, 50], thì len(my_list) tức độ dài sẽ là 5, và chỉ số lớn nhất sẽ là 5 - 1 = 4. Vậy nên chỉ số hợp lệ sẽ là từ 0 đến 4.
+        return my_list[index1], my_list[index2] #Trả về chỉ số index1 và index2 trong danh sách my_list
+    else: #Ngược lại thì không trả về
+        print("Chỉ số không hợp lệ!") # in thông báo "Chỉ số không hợp lệ"
+        exit()# Sau đó dừng chương trình.
 
-# Người dùng lựa chọn cách so sánh
-print("Chọn cách so sánh:")
-print("1. Nhập giá trị từ bàn phím")
-print("2. Lấy giá trị từ danh sách có sẵn")
 
-choice = int(input("Nhập lựa chọn của bạn (1 hoặc 2): "))
+def main():
+    """
+    Hàm chính (Có thể hiểu đây là hàm dùng để gọi để chạy các function)
+   
+    Parameter: 
+    - "Không có tham số truyền vào"
 
-if choice == 1:
-    # Nhập giá trị từ người dùng
-    value1 = int(input("Nhập giá trị thứ nhất: "))
-    value2 = int(input("Nhập giá trị thứ hai: "))
-elif choice == 2:
-    # Lấy giá trị từ danh sách
-    print("Danh sách giá trị:", my_list)
-    index1 = int(input(f"Nhập chỉ số phần tử thứ nhất (từ 0 đến {len(my_list) - 1}): "))
-    index2 = int(input(f"Nhập chỉ số phần tử thứ hai (từ 0 đến {len(my_list) - 1}): "))
-    
-    # Kiểm tra xem chỉ số có hợp lệ không
-    if 0 <= index1 < len(my_list) and 0 <= index2 < len(my_list):
-        value1 = my_list[index1]
-        value2 = my_list[index2]
-    else:
-        print("Chỉ số không hợp lệ!")
-        exit()
-else:
-    print("Lựa chọn không hợp lệ!")
-    exit()
+    Return:
+    - "Không có giá trị trả về"
+"""
+    my_list = [10, 20, 30, 40, 50] #Khai báo danh sách my_list = [10, 20, 30, 40, 50]
 
-# Gọi hàm để so sánh
-result = Check_Answer(value1, value2)
-print(f"Kết quả so sánh: {result}")
+    # Người dùng lựa chọn cách so sánh
+    print("Chọn cách so sánh:") #lệnh in ra màn hình câu "Chọn cách so sánh:"
+    print("1. Nhập giá trị từ bàn phím") #lệnh in ra màn hình câu "1. Nhập giá trị từ bàn phím:"
+    print("2. Lấy giá trị từ danh sách có sẵn") #lệnh in ra màn hình câu "2. Lấy giá trị từ danh sách có sẵn:"
+
+    choice = int(input("Nhập lựa chọn của bạn (1 hoặc 2): ")) #Tạo biến cục bộ tên là choice và cho phép nhập từ bàn phím
+
+    #Sử dụng hàm if để phân chia lựa chọn của người dùng là tự nhập từ bàn phím hay chọn từ danh sách có sẵn (my_list)
+    if choice == 1: #Nếu choice nhập có giá trị = 1
+        value1, value2 = input_values() #Tạo biến cục bộ là value1, value2 gán với hàm input_values(). Vì hàm input_values() trả về hai giá trị nên 2 giá trị đó lần lượt bằng với value1 và value2 ở biến cục bộ này.
+    elif choice == 2: #Nếu choice nhập có giá trị = 2
+        value1, value2 = select_from_list(my_list) #Tạo biến cục bộ là value1, value2 gán với hàm select_from_list(my_list). Vì hàm select_from_list(my_list) trả về hai giá trị nên 2 giá trị đó lần lượt bằng với value1 và value2 ở biến cục bộ này.
+    else: #Nếu không bằng 2 và không bằng 1
+        print("Lựa chọn không hợp lệ!") # in ra màn hình "Lựa chọn không hợp lệ!"
+        exit() #Thoát tiến trình ngay lập tức.
+
+
+    # Sau khi có được 2 giá trị phù hợp thì gọi hàm để so sánh
+    result = Check_Answer(value1, value2) #Tạo biến cục bộ tên result gán với hàng Check_Answer(value1,value2). Vì hàm Check_Answer(value1,value2) sẽ trả về True hoặc False
+    print(f"Kết quả so sánh: {result}") #in ra màn hình "Kết quả so sánh: " kèm theo result
+
+
+main() # Chạy chương trình chính
