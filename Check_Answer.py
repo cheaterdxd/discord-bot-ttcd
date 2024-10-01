@@ -2,9 +2,8 @@
 
 """Bước 1"""
 """Làm hàm Check_Answer cho phép truyền value1 và value2 vào để so sánh:"""
-#Nếu value1 bằng value2 thì kết quả trả về chữ "Bằng nhau"
-#Ngược lại nếu value1 lớn hơn value2 thì kết quả trả về chữ "Lớn hơn"
-#ngược lại value1 nhỏ hơn value2 thì kết quả trả về chữ "Nhỏ hơn"
+#Nếu value1 bằng value2 thì kết quả trả về True
+#ngược lại nếu 2 value không bằng nhau thì kết quả trả về False
 
 """Bước 2"""
 """Truyền danh sách có sẵn vào. Chỗ này thì em Kiệt chưa biết là ép danh sách vào theo kiểu nào: 1 nhập tay; 2 là truyền theo dạng excel được thống kê sẵn rồi viết lệnh SQL đưa dô"""
@@ -29,11 +28,9 @@
 def Check_Answer(value1, value2):
     # So sánh hai giá trị
     if value1 == value2:
-        return f"{value1} và {value2} bằng nhau"  # In giá trị cụ thể khi hai giá trị bằng nhau
-    elif value1 > value2:
-        return f"{value1} lớn hơn {value2}"  # Trả về khi value1 lớn hơn value2
+        return True  # Nếu giá trị bằng nhau thì trả về True
     else:
-        return f"{value1} nhỏ hơn {value2}"  # Trả về khi value1 nhỏ hơn value2
+        return False # Nếu giá trị không bằng nhau thì trả về False
     
 # Danh sách các giá trị
 my_list = [10, 20, 30, 40, 50]
