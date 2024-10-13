@@ -1,14 +1,22 @@
 import dotenv, os, pandas as pd, colorama, asyncio, traceback, discord
 from discord import app_commands 
 
+
+from patthana import check_answer
+
+check_answer.helloworld()
+
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN_DISCORD")
-DEBUG = False # in debug mode, bot will delay at 5 minuts = 300 in diem danh
 
-if DEBUG:
-    MY_GUILD = discord.Object(id=902626872725217301)  # test guild
-else:
+DEBUG = "bkt" # in debug mode, bot will delay at 5 minuts = 300 in diem danh
+
+if DEBUG == "tuan":
+    MY_GUILD = discord.Object(id=902626872725217301)  # test Tuan
+elif DEBUG == "ttcd":
     MY_GUILD = discord.Object(id=868410572369174539) # Trung tâm Chí Dũng guild
+elif DEBUG == "bkt":
+    MY_GUILD = discord.Object(id=895928190772609035) # BKT guild
 
 class MyClient(discord.Client):
     """
@@ -39,16 +47,14 @@ class MyClient(discord.Client):
         self.tree.copy_global_to(guild=MY_GUILD)
         await self.tree.sync(guild=MY_GUILD)
 
-
 intents = discord.Intents.all() # enable all gateway intents
 client = MyClient(intents=intents) # initialize the client bot
-
 stop_check_class = False # check status of continue diemdanh
 
-if not DEBUG:
+if "ttcd" in DEBUG:# xài thật
     delay_time_at_diemdanh = 300 # 5 phut
     delete_after_at_diemdanh = 200
-else:
+else: # đang code
     delay_time_at_diemdanh = 5 # 5 giay
     delete_after_at_diemdanh = 3
 
@@ -152,7 +158,6 @@ async def diem_danh(interaction: discord.Interaction):
                 loop_count += 1
                 await asyncio.sleep(delay_time_at_diemdanh) # stop at 5 minuts = 300
                 
-
 @client.tree.command()
 async def dung_diem_danh(interaction: discord.Interaction):
     '''Dừng điểm danh'''
@@ -222,7 +227,6 @@ async def role_set_for(interaction: discord.Interaction, user_name_list: str, ro
     else:
         await interaction.response.send_message(f"Role '{role_name}' not found", ephemeral=True)
 
-
 @client.tree.command(description="Liệt kê ra các user hiện tại đang trong kênh")
 async def get_user(interaction: discord.Interaction):
     """
@@ -245,7 +249,11 @@ async def get_user(interaction: discord.Interaction):
         output += i.display_name + "\n"
     await interaction.response.send_message(f"{output}", ephemeral=True)
 
-
+@client.tree.command(description="Anh Tân xin chào")
+async def hello(interaction:discord.Interaction):
+    # đoạn trước này
+    # 1 giây thực đoạn ví dụ: lấy thông tin .... 
+    await interaction.response.send_message("Anh Tân đẹp trai đã gửi tin nhắn hello đến bạn!", ephemeral=True)
 
 '''
 def load_file_user(class_name: str) -> list:
