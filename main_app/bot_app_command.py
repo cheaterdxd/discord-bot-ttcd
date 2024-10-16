@@ -1,11 +1,6 @@
 import dotenv, os, pandas as pd, colorama, asyncio, traceback, discord
 from discord import app_commands 
 
-
-from patthana import check_answer
-
-check_answer.helloworld()
-
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN_DISCORD")
 
