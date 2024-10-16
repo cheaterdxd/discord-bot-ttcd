@@ -36,6 +36,3 @@ def standardize_input(user_input: str) -> str:
 
     # Trả về chuỗi đã chuẩn hóa
     return standardized_input
-
-a = input("Nhập input: ")
-print(standardize_input(a))
