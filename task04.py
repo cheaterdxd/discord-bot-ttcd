@@ -11,7 +11,7 @@ async def gui_cau_hoi_cho_user(danh_sach_cau_hoi: list, user):
     # Khởi tạo danh sách để lưu câu trả lời
     for index, cau_hoi in enumerate(danh_sach_cau_hoi):
     # Gửi câu hỏi và chờ trả lời
-    cau_tra_loi = await gui_va_doi_cau_tra_loi(cau_hoi, user, index + 1)
+        cau_tra_loi = await gui_va_doi_cau_tra_loi(cau_hoi, user, index + 1)
 # Hàm nhận câu trả lời từ người dùng với điều kiện câu trả lời phải là A, B, C hoặc D
 async def nhan_cau_tra_loi(user):
     while True:  # Vòng lặp liên tục cho đến khi nhận được câu trả lời hợp lệ
