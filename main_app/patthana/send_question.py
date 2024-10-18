@@ -14,7 +14,6 @@ async def gui_cau_hoi_cho_user(danh_sach_cau_hoi: list, user):
     - True: Người dùng đã trả lời hết các câu hỏi
     - False: Người dùng chưa trả lời hết, hoặc sai cú pháp
     """
-
     danh_sach_tra_loi = dict()
     # Khởi tạo danh sách để lưu câu trả lời
     for so_thu_tu, noi_dung_cau_hoi in enumerate(danh_sach_cau_hoi):
@@ -33,7 +32,6 @@ async def gui_cau_hoi_cho_user(danh_sach_cau_hoi: list, user):
 async def gui_va_doi_cau_tra_loi(user, so_thu_tu, noi_dung_cau_hoi):
     pass
 
-
 async def kiem_tra_cau_tra_loi(cau_tra_loi):
     """
     Hàm nhận câu trả lời từ người dùng với điều kiện câu trả lời phải là A, B, C hoặc D
@@ -43,7 +41,6 @@ async def kiem_tra_cau_tra_loi(cau_tra_loi):
         if tung_dap_an not in ['A','B','C','D','E']:
             ket_qua = "Cú pháp không hợp lệ"
             return ket_qua
-    
     ket_qua = "Cú pháp hợp lệ"
     return ket_qua
 
