@@ -28,7 +28,6 @@ async def gui_cau_hoi_cho_user(danh_sach_cau_hoi: list, user):
         else:
             print("Cú pháp hợp lệ")
             danh_sach_tra_loi[so_thu_tu] = cau_tra_loi
-    
     return True
 
 async def gui_va_doi_cau_tra_loi(user, so_thu_tu, noi_dung_cau_hoi):
