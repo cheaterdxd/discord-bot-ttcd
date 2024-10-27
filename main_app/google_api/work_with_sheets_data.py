@@ -1,6 +1,7 @@
-from authenticator import authen_me
+from .authenticator import authen_me
+from .sheet_info import SHEET_ID
 
-def read_sheet_at(api_service, sheet_id:str, sheet_range:str)-> list:
+def read_sheet_at(api_service, sheet_range:str,sheet_id=SHEET_ID,)-> list:
     """
     Read sheet data at sheet_id and range
 
@@ -19,6 +20,33 @@ def read_sheet_at(api_service, sheet_id:str, sheet_range:str)-> list:
        .execute()
     )
     return result.get("values", [])
+
+def check_user_exist(api_service, user_info:str)->dict:
+    """
+    Check if user exist in sheet and return {index, role} if it exists and False otherwise
+    
+    Args: 
+        user_info (str): name of user
+
+    Returns: 
+        Value: {index, role} if user_info exists, False otherwise
+    """
+    if "@" in user_info and ".com" in user_info: 
+        data_mail = read_sheet_at(api_service, sheet_range="Sheet2!A2:A")
+        for row in data_mail:
+            if user_info in row[0]:
+                user_index = data_mail.index(row)
+                user_role = read_sheet_at(api_service,"Sheet2!C2:C")[user_index][0]
+                return {'role': user_role, 'index': user_index}
+    else:
+        data_phone = read_sheet_at(api_service, sheet_range="Sheet2!B2:B")
+        for row in data_phone:
+            print(row)
+            if user_info in row[0]:
+                user_index = data_phone.index(row)
+                user_role = read_sheet_at(api_service,"Sheet2!C2:C")[user_index][0]
+                return {'role': user_role, 'index': user_index}
+    return False
 
 
 if __name__ == "__main__":

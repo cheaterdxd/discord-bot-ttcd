@@ -3,6 +3,9 @@
 - Thực hiện chức năng cho phép user thi patthana trên discord. 
 - Câu hỏi: câu hỏi trắc nghiệm nhiều đáp án
 
+- format file câu hỏi là YAML 
+
+
 # Giai đoạn 2
 
 - Mở rộng các loại câu hỏi
