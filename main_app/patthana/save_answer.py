@@ -52,5 +52,3 @@ def manage_data_dict(question_id: int, student_answer: str = None, action: str =
         else:
             print("Không có dữ liệu nào.")
             # Kiểm tra trước khi in để đảm bảo dictionary không rỗng, giúp cải thiện trải nghiệm người dùng khi không có dữ liệu nào.
-    else:
-        print(f"Hành động '{action}' không hợp lệ.")
