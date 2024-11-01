@@ -1,11 +1,6 @@
 import dotenv, os, pandas as pd, colorama, asyncio, traceback, discord
 from discord import app_commands 
 
-
-from patthana import check_answer
-
-check_answer.helloworld()
-
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN_DISCORD")
 
@@ -254,6 +249,12 @@ async def hello(interaction:discord.Interaction):
     # đoạn trước này
     # 1 giây thực đoạn ví dụ: lấy thông tin .... 
     await interaction.response.send_message("Anh Tân đẹp trai đã gửi tin nhắn hello đến bạn!", ephemeral=True)
+
+@client.tree.command(description="Chức năng gắn role tự động dành cho học viên")
+async def give_me_role(interaction:discord.Interaction):
+    # interaction.
+    messg = await interaction.response.send_message("Here role")
+    await messg.add_reaction("👍")
 
 '''
 def load_file_user(class_name: str) -> list:

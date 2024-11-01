@@ -51,4 +51,6 @@ if __name__ == '__main__': # được chạy trực tiếp
     user_input = "1"
     level = get_input_user.standardize_input(user_input)
     danh_sach_cau_hoi = get_question.lay_danh_sach_cau_hoi(level)
+
     gui_cau_hoi_cho_user(danh_sach_cau_hoi,user)
+
