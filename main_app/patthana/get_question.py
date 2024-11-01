@@ -46,17 +46,3 @@ def get_questions_by_level(level: str, questions: list) -> list:
 
     return random.sample(filtered_questions, k=min(number_of_questions_to_select, len(filtered_questions))) if filtered_questions else []
     # Chọn ngẫu nhiên câu hỏi từ danh sách filtered_questions. Nếu danh sách này không rỗng, nó sẽ trả về một danh sách có độ dài bằng min(câu hỏi muốn in ra, câu hỏi đã lọc) được chọn ngẫu nhiên. Nếu danh sách này rỗng, nó sẽ trả về một danh sách rỗng.
-
-# Test
-file_path = 'E:\Downloads\cau_hoi.yaml'  
-questions = read_yaml_file(file_path)
-# print("\n".join(str(question) for question in questions))  # In ra mỗi dict 1 dòng
-
-# Giả sử level đã được chọn từ trước
-level = 'dễ'  # Thay đổi giá trị này nếu cần
-
-questions_by_level = get_questions_by_level(level, questions)
-
-for question in questions_by_level:
-    # Chỉ in ra câu hỏi theo level thì:
-    print(f"Q: {question['Q']}")
