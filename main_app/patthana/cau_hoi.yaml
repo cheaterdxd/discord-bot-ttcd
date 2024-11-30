@@ -1,0 +1,28 @@
+ID: 1
+Q: "Bạn đang làm gì?"
+A:
+  - "tôi đang học"
+  - "tôi đang nghỉ"
+  - "tôi đang đi chơi"
+  - "tôi đang ngủ"
+RA: A
+---
+ID: 2
+Q: "Tôi đang ở đâu?"
+A:
+  - "công viên"
+  - "nhà"
+  - "nhà trọ"
+  - "nhà phát triển"
+  - "nhà hàng"
+RA: A
+---
+ID: 3
+Q: "Tôi đang ở đâu?"
+A:
+  - "nhà"
+  - "nhà trọ"
+  - "nhà phát triển"
+  - "công viên"
+  - "nhà hàng"
+RA: B
