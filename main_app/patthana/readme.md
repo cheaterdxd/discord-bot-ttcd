@@ -27,3 +27,6 @@ def hello3():
 if __name__ == '__main__': # được chạy trực tiếp
     hello1()
 ```
+
+Làm demo file yaml câu hỏi
+Hoàn thành hàm check_answer với ý tưởng là class

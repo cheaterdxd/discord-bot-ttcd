@@ -16,7 +16,7 @@ class MyClient(discord.Client):
         Returns:
             None
     """
-    alertor_javis = None
+
     def __init__(self, *, intents: discord.Intents, guild):
         super().__init__(intents=intents)
         # A CommandTree is a special type that holds all the application command

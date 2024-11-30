@@ -2,6 +2,7 @@ import dotenv, os, pandas as pd, colorama, asyncio, traceback, discord
 from myclient_class import MyClient
 from auto_job import auto_role
 from utils import debug_log, custom_error
+from discord.ext import commands
 
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN_DISCORD")
@@ -264,5 +265,6 @@ async def hello(interaction:discord.Interaction):
     # đoạn trước này
     # 1 giây thực đoạn ví dụ: lấy thông tin .... 
     await interaction.response.send_message("Anh Tân đẹp trai đã gửi tin nhắn hello đến bạn!", ephemeral=True)
+
 
 client.run(TOKEN)
