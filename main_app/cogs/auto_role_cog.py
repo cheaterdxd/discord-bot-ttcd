@@ -3,24 +3,30 @@ from admin_panel import alertor_javis
 from utils import custom_error, debug_log
 import os, dotenv, discord
 from auto_job import auto_role
+from main_app.Bot_custom import Bot_with_javis
+
+
+# if DEBUG == "tuan":
+#     CHANNEL_ID = 902626872725217305
+# elif DEBUG == "ttcd":
+#     MY_GUILD = discord.Object(id=868410572369174539) # Trung tâm Chí Dũng guild
+#     CHANNEL_ID = os.getenv(f"STARTUP_ROLE_VIEW_CHANNEL_ID_{DEBUG}")
+#     print(type(CHANNEL_ID))
+# elif DEBUG == "bkt":
+#     MY_GUILD = discord.Object(id=895928190772609035) # BKT guild
+
+
 dotenv.load_dotenv()
-DEBUG = os.getenv("DEBUG") 
-startup_role_view_messsage_id = os.getenv("STARTUP_ROLE_VIEW_ID")
-if DEBUG == "tuan":
-    CHANNEL_ID = 902626872725217305
-elif DEBUG == "ttcd":
-    MY_GUILD = discord.Object(id=868410572369174539) # Trung tâm Chí Dũng guild
-    CHANNEL_ID = os.getenv("STARTUP_ROLE_VIEW_CHANNEL_ID")
-    print(type(CHANNEL_ID))
-elif DEBUG == "bkt":
-    MY_GUILD = discord.Object(id=895928190772609035) # BKT guild
+RUN = os.getenv("RUN") 
+GUILD_ID = os.getenv(f"{RUN}+_GUILD_ID")
+START_ROLE_VIEW_CHANNEL_ID = os.getenv(f"STARTUP_ROLE_VIEW_CHANNEL_ID_{RUN}") 
+startup_role_view_messsage_id = os.getenv(f"STARTUP_ROLE_VIEW_ID_{RUN}")
 
 
 class auto_role_bot(commands.Cog):
-    alertor_javis = None
     set_persistent = False
 
-    def __init__(self, bot:commands.Bot):
+    def __init__(self, bot:Bot_with_javis):
         self.bot = bot
 
     def init_view_get_role(self, view):
@@ -42,15 +48,23 @@ class auto_role_bot(commands.Cog):
         # print(type(guild))
         if guild is None:
             raise custom_error.GuildNotFoundException(f"Init Alertor Javis suspended because no guild object. Information:\nguild_object: {guild}")
-        self.alertor_javis = alertor_javis.alartor_JAVIS(guild) # alart man for administration
+        self.bot.javis = alertor_javis.alartor_JAVIS(guild) # alart man for administration
+        debug_log.success("javis init for bot")
     
     
     async def pre_init(self):
-        # check available auto-role
+        """
+        Init view of the role view
+        """
+        # init persistent view
         self.init_view_get_role(auto_role.startup_get_role_view(timeout=None))
 
+
+        # send init view if not already
         if str(startup_role_view_messsage_id) == '0' and startup_role_view_messsage_id != None: # check if autorole message is already available
-            channel_get_role = self.bot.get_channel(int(CHANNEL_ID))
+            debug_log.error(f"Chưa có gửi view vào kênh")
+            
+            channel_get_role = self.bot.get_channel(int(START_ROLE_VIEW_CHANNEL_ID))
 
             if channel_get_role is not None:
                 # Create the view
@@ -63,18 +77,20 @@ class auto_role_bot(commands.Cog):
                 try:
                     # Send the message with the embed and view
                     mes = await channel_get_role.send(embed=embed, view=view, file=file_img)
-                    dotenv.set_key(".env","STARTUP_ROLE_VIEW_ID",str(mes.id))
+                    dotenv.set_key(".env",f"STARTUP_ROLE_VIEW_ID_{RUN}",str(mes.id))
                     debug_log.success("Tạo startup role view thành công và cập nhật ID thành công.")
                 except Exception as e:
                     debug_log.error(f"Lỗi gửi tin nhắn: {str(e)}")            
             else:
                 debug_log.error("Channel not found!")
         else:
-            debug_log.info("Startup role view message already exists.")
+            debug_log.info("View gắn role đã được gửi.")
         # init javis + check if log channel exists (if not, raise exception)
         try:
             for g in self.bot.guilds:
-                if g.id == MY_GUILD.id:
+                debug_log.info(f" g.id = {g.id}, type = {type(g)}")
+                debug_log.info(f" GUILD_ID = {GUILD_ID}, type = {type(GUILD_ID)}")
+                if str(g.id) == GUILD_ID:
                     self.init_javis(g)
         except custom_error.NotFoundAdminLogChannelException as e1:
             debug_log.error(f"Chưa có channel cho admin_log")
@@ -84,6 +100,7 @@ class auto_role_bot(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print(f"{__name__} loaded successfully")
+        await self.pre_init()
 		# an example event with cogs
 
 async def setup(bot):

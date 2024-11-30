@@ -1,5 +1,5 @@
 from discord.ext import commands
-import os
+from utils import debug_log
 
 class AdminCog(commands.Cog):
     def __init__(self, bot:commands.Bot):
@@ -17,6 +17,7 @@ class AdminCog(commands.Cog):
         try:
             await self.bot.load_extension(f"cogs.{extension}")
             await ctx.reply(f"Loaded `{extension}` successfully.", ephemeral=True)
+            debug_log.success(f"Loaded {extension} successfully.")
         except Exception as e:
             await ctx.reply(f"Failed to load `{extension}`. Error: {e}", ephemeral=True)
 
@@ -27,6 +28,7 @@ class AdminCog(commands.Cog):
         try:
             await self.bot.unload_extension(f"cogs.{extension}")
             await ctx.reply(f"Unloaded `{extension}` successfully.", ephemeral=True)
+            debug_log.success(f"Unloaded {extension} successfully.")
         except Exception as e:
             await ctx.reply(f"Failed to unload `{extension}`. Error: {e}", ephemeral=True)
 
@@ -37,7 +39,8 @@ class AdminCog(commands.Cog):
         try:
             await self.bot.unload_extension(f"cogs.{extension}")
             await self.bot.load_extension(f"cogs.{extension}")
-            await ctx.reply(f"Reloaded `{extension}` successfully.", ephemeral=True)
+            await ctx.reply(f"Reloaded {extension}` successfully.", ephemeral=True)
+            debug_log.success(f"Reloaded {extension} successfully.")
         except Exception as e:
             await ctx.reply(f"Failed to reload `{extension}`. Error: {e}", ephemeral=True)
 async def setup(bot):

@@ -1,5 +1,5 @@
 import dotenv, os, pandas as pd, colorama, asyncio, traceback, discord
-from myclient_class import MyClient
+from main_app.Bot_custom import MyClient
 from auto_job import auto_role
 from utils import debug_log, custom_error
 from discord.ext import commands

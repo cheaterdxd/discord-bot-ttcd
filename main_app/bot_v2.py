@@ -1,26 +1,25 @@
-import dotenv, os, pandas as pd, colorama, asyncio, traceback, discord
-from myclient_class import MyClient
-from auto_job import auto_role
-from utils import debug_log, custom_error
+import dotenv, os , asyncio, discord
+from main_app.Bot_custom import Bot_with_javis
+from utils import debug_log
 from discord.ext import commands
 from pathlib import Path
 dotenv.load_dotenv()
 TOKEN = os.getenv("TOKEN_DISCORD")
-startup_role_view_messsage_id = os.getenv("STARTUP_ROLE_VIEW_ID")
-DEBUG = os.getenv("DEBUG") # in debug mode, bot will delay at 5 minuts = 300 in diem danh
+
+DEBUG = os.getenv("RUN") # in debug mode, bot will delay at 5 minuts = 300 in diem danh
 debug_log.info(DEBUG)
-# debug_log.set_debug_mode(DEBUG)
 
-MY_GUILD = discord.Object(id=os.getenv(str(DEBUG)+"_guild")) 
 
-if DEBUG == "tuan":
-    CHANNEL_ID = 902626872725217305
-elif DEBUG == "ttcd":
-    MY_GUILD = discord.Object(id=868410572369174539) # Trung tâm Chí Dũng guild
-    CHANNEL_ID = os.getenv("STARTUP_ROLE_VIEW_CHANNEL_ID")
-    print(type(CHANNEL_ID))
-elif DEBUG == "bkt":
-    MY_GUILD = discord.Object(id=895928190772609035) # BKT guild
+# MY_GUILD = discord.Object(id=os.getenv(str(DEBUG)+"_guild")) 
+
+# if DEBUG == "tuan":
+#     CHANNEL_ID = 902626872725217305
+# elif DEBUG == "ttcd":
+#     MY_GUILD = discord.Object(id=868410572369174539) # Trung tâm Chí Dũng guild
+#     CHANNEL_ID = os.getenv("STARTUP_ROLE_VIEW_CHANNEL_ID")
+#     print(type(CHANNEL_ID))
+# elif DEBUG == "bkt":
+#     MY_GUILD = discord.Object(id=895928190772609035) # BKT guild
 
 ################################ GLOBAL VARIABLES #################################
 intents = discord.Intents.all() # enable all gateway intents
@@ -55,7 +54,7 @@ def get_prefix(bot, message):
     # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
-client = commands.Bot(command_prefix=get_prefix, intents=intents)
+client = Bot_with_javis(command_prefix=get_prefix, intents=intents)
 
 # Loading cogs module
 

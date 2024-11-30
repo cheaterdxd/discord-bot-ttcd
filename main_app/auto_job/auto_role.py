@@ -5,14 +5,14 @@ from discord import utils, Interaction, Color, ui, Interaction, ButtonStyle
 from main_app.utils import member_helper
 from utils import debug_log, strings_helper, custom_error
 from gui_view.input import colored_message_embed
-from myclient_class import MyClient
 
 
 
 
 class get_info_modal(ui.Modal, title='XÁC THỰC HỌC VIÊN'):
     input_field = ui.TextInput(label="Nhập SĐT/mail đã đăng ký", placeholder="Số điện thoại hoặc mail", custom_id="ROOT#input_info_textinput")
-    async def on_submit(self, interaction:Interaction):
+    async def on_submit(self, interaction):
+        debug_log.info(type(interaction))
         # await interaction.response.send_message(f"You entered: {self.input_field.value}")
         await prepare_data_for_process(interaction, self.input_field.value)
 
@@ -102,6 +102,7 @@ async def processing_role(guild, member_id:str, info_user_clean, interaction:Int
         
 async def prepare_data_for_process(interaction:Interaction, user_info:str):
     guild = interaction.guild
+    debug_log.info(type(interaction))
     member_id = interaction.user.id
     message_alert = ""
     member_info_collect = member_helper.get_member_info(guild, int(member_id))# Một số thông tin khác cần để tag admin
@@ -144,11 +145,12 @@ async def prepare_data_for_process(interaction:Interaction, user_info:str):
         traceback.print_exc() # cần traceback vì không xác định được lỗi
     finally: # luôn gửi tin nhắn cho admin cuối cùng
         try:
-            client:MyClient = interaction.client
+            client = interaction.client
+            debug_log.info(client)
             if client is None:
                 debug_log.error("Client is None")
-            await client.alertor_javis.send_alert_to_admins(message_alert)
-            
+            else:
+                await client.javis.send_alert_to_admins(message_alert)
         except Exception as e:
             traceback.print_exc()
             debug_log.error(f"Error sending alert: {e}")
